@@ -9,8 +9,26 @@ const WeatherForecast = () =>{
         console.log(city);
     }
 
-    function getWeatherForecast() {
-        //TODO
+    function getWeatherForecast(event) {
+        event.preventDefault();
+
+        let encodedCity = encodeURIComponent(city);
+
+        fetch(`https://community-open-weather-map.p.rapidapi.com/weather?units=${unit}&q=${encodedCity}`, {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "a2b827e9fdmsh333a114f31872ecp141d50jsn45796c7950cd",
+                "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com"
+            }
+        })
+        .then(response => {
+            console.log(response);
+        })
+        .catch(err => {
+            console.log("Error has come. please check your api")
+            console.error(err);
+        });
+    
     }
 
     function onUnitChange(event){
