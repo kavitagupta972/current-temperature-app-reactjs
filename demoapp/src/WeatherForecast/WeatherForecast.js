@@ -1,27 +1,29 @@
 import { useState } from "react";
+import DisplayData from "../DisplayData/DisplayData";
 const WeatherForecast = () =>{
 
     let [city, setCity] =useState(" ");
-    let [unit, setUnit] = useState('imperial')
+    let [unit, setUnit] = useState('metric');
+    let [resp, setResp] = useState({});
 
     function onCityChange(event){
         setCity(event.target.value);
-        console.log(city);
     }
 
     function getWeatherForecast(event) {
         event.preventDefault();
 
         let encodedCity = encodeURIComponent(city);
-
-        fetch(`https://community-open-weather-map.p.rapidapi.com/weather?units=${unit}&q=${encodedCity}`, {
+       fetch(`https://community-open-weather-map.p.rapidapi.com/weather?units=${unit}&q=${encodedCity}`, {
             "method": "GET",
             "headers": {
                 "x-rapidapi-key": "a2b827e9fdmsh333a114f31872ecp141d50jsn45796c7950cd",
                 "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com"
             }
         })
-        .then(response => {
+        .then(response => response.json())
+        .then(response =>  {
+            setResp(response);
             console.log(response);
         })
         .catch(err => {
@@ -68,6 +70,12 @@ const WeatherForecast = () =>{
             <br/>
             <input type="submit" value ="submit" className="submit-button"/>
             </form>
+            <DisplayData 
+            resp = {resp}
+            city = {city}
+            message = "hello world"
+            >
+            </DisplayData>
         </div>
     )
 }
