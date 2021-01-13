@@ -10,3 +10,5 @@ const Homepage = () =>{
         </React.Fragment>
     )
 }
+
+export default Homepage;
