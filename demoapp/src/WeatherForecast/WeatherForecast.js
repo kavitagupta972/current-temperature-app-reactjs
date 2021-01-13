@@ -1,11 +1,13 @@
 import { useState } from "react";
 import DisplayData from "../DisplayData/DisplayData";
+import './WeatherForecast.css';
 const WeatherForecast = () =>{
 
     let [city, setCity] =useState(" ");
     let [unit, setUnit] = useState('metric');
     let [resp, setResp] = useState({});
     let [error, setError] = useState(false);
+    let [resetBtn, setResetBtn] = useState(false);
 
     function onCityChange(event){
         setCity(event.target.value);
@@ -13,7 +15,7 @@ const WeatherForecast = () =>{
 
     function getWeatherForecast(event) {
         event.preventDefault();
-
+        setResetBtn(true);
         if(city.length === 0){
             setError(true);
         }
@@ -47,6 +49,16 @@ const WeatherForecast = () =>{
     function onUnitChange(event){
         setUnit(event.target.value);
     }
+
+    function handleClickEvent() {
+        console.log("inside hadleClickEvent method");
+        setCity(' ');
+        setResp({});
+        setUnit('metric');
+        setError(false);
+        setResetBtn(false);
+    }
+
     return (
         <div className = "weather-forecast-form-div">
             <h2>Find Current Temperature</h2>
@@ -86,6 +98,8 @@ const WeatherForecast = () =>{
             city = {city}
             message = "Some error has occured. Please try again"
             err = {error}
+            onButtonClick = {handleClickEvent}
+            resetBtn = {resetBtn}
             >
             </DisplayData>
         </div>

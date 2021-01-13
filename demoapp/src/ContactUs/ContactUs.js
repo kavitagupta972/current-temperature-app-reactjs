@@ -1,4 +1,6 @@
 import React from "react";
+import './ContactUs.css';
+
 const ContactUS = () => (
   <React.Fragment>
     <div className="container">
