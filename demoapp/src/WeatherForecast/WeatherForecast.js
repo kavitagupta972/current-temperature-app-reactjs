@@ -5,6 +5,7 @@ const WeatherForecast = () =>{
     let [city, setCity] =useState(" ");
     let [unit, setUnit] = useState('metric');
     let [resp, setResp] = useState({});
+    let [error, setError] = useState(false);
 
     function onCityChange(event){
         setCity(event.target.value);
@@ -12,6 +13,12 @@ const WeatherForecast = () =>{
 
     function getWeatherForecast(event) {
         event.preventDefault();
+
+        if(city.length === 0){
+            setError(true);
+        }
+        setError(false);
+        setResp({});
 
         let encodedCity = encodeURIComponent(city);
        fetch(`https://community-open-weather-map.p.rapidapi.com/weather?units=${unit}&q=${encodedCity}`, {
@@ -23,12 +30,16 @@ const WeatherForecast = () =>{
         })
         .then(response => response.json())
         .then(response =>  {
-            setResp(response);
-            console.log(response);
+            if(response.cod !== 200){
+                setError(true);
+            } else{
+                setError(false);
+                setResp(response);
+            }
+           
         })
         .catch(err => {
-            console.log("Error has come. please check your api")
-            console.error(err);
+            setError(true);
         });
     
     }
@@ -73,7 +84,8 @@ const WeatherForecast = () =>{
             <DisplayData 
             resp = {resp}
             city = {city}
-            message = "hello world"
+            message = "Some error has occured. Please try again"
+            err = {error}
             >
             </DisplayData>
         </div>
