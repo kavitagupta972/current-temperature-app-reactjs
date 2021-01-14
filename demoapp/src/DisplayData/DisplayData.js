@@ -7,7 +7,7 @@ const DisplayData = (props) =>{
             {props.resp.cod !== 200? 
             <div>
             <div>{props.city}</div>
-            <div> current temperature is {props.resp.main.temp}</div> 
+            <div> current temperature is </div> 
             </div>
             : null}
             {props.resetBtn && <button className="button" onClick={props.onButtonClick}>Reset</button>}

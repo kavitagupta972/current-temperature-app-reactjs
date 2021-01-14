@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DisplayData from "../DisplayData/DisplayData";
 import './WeatherForecast.css';
 const WeatherForecast = () =>{
@@ -9,6 +9,10 @@ const WeatherForecast = () =>{
     let [error, setError] = useState(false);
     let [resetBtn, setResetBtn] = useState(false);
 
+    useEffect(()=>{
+        console.log("inside useEffect method");
+    });
+    
     function onCityChange(event){
         setCity(event.target.value);
     }
